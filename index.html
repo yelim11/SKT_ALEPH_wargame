@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LOST//SIGNAL — 버려진 도시 · STAGE 1</title>
+<style>
+:root{color-scheme:dark;--bg:#060b14;--panel:#0e1926;--panel2:#132235;--stroke:#263e56;--muted:#8da5b5;--mint:#77ddc7;--pink:#ff668d;--text:#e9f4ff;--gold:#f2bf79}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 20% -30%,#223b5b 0,transparent 45%),radial-gradient(ellipse at 100% 30%,#291d3e 0,transparent 42%),var(--bg);color:var(--text);font:14px/1.55 system-ui,'Malgun Gothic',sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid #90efe0;outline-offset:2px}button:disabled{opacity:.5;cursor:default}button:not(:disabled):active{transform:translateY(1px)}
+header{height:72px;max-width:1560px;margin:auto;padding:10px 22px;display:flex;justify-content:space-between;align-items:center;gap:14px}header .logo{font:900 28px/1.05 system-ui,sans-serif;letter-spacing:2px;color:var(--pink)}.logo em{color:#8c9dd1;font-style:normal}.subtitle{font:10px/1.8 monospace;color:#819daf;letter-spacing:2px;margin-top:3px}.topstats{display:flex;gap:10px;align-items:center}.chip{padding:7px 12px;background:#102332;border:1px solid #2c5363;border-radius:7px;color:#a7f6df;font:11px monospace}.ghost{padding:9px 12px;border:1px solid #34516c;background:#16283b;border-radius:7px;color:#c7e3f0}
+main{max-width:1560px;padding:8px 22px 28px;margin:auto}.opening{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:16px}.eyebrow{font:700 11px monospace;color:var(--pink);letter-spacing:2px}.opening h1{font-size:26px;margin:4px 0 3px;letter-spacing:-.7px}.opening p{margin:0;color:var(--muted);font-size:12px}.counter{font:13px monospace;color:#acd6db}.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start}.panel{border-radius:12px;background:linear-gradient(150deg,#102133,#0a1523);border:1px solid #253d54;overflow:hidden;box-shadow:0 12px 55px #0005}.panelhead{height:46px;padding:0 15px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #263b4f}.panelhead span{font:11px monospace;color:#849faf}.gamewrap{position:relative;overflow:hidden;background:#141f2e}#game{width:100%;height:auto;display:block;aspect-ratio:960/600;image-rendering:pixelated;touch-action:none}.worldhud{position:absolute;top:15px;left:16px;background:#06121bc7;border:1px solid #2c5965;padding:9px 11px;border-radius:7px;pointer-events:none;min-width:155px}.worldhud b{font:12px monospace;color:#a8ebdf}.worldhud div{color:#a3bcc5;font:11px monospace;margin-top:4px}.hinter{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);padding:10px 16px;background:#071623ef;border:1px solid #75afaa;color:#dcfff8;border-radius:8px;white-space:nowrap;box-shadow:0 6px 28px #0009;font-size:12px;opacity:0;pointer-events:none;transition:opacity .15s}.hinter.show{opacity:1}.maphelp{position:absolute;right:14px;top:14px;border:1px solid #33576a;background:#071521bf;border-radius:7px;padding:8px;color:#cee6ef;font:11px monospace;pointer-events:none}.keybar{padding:12px 14px;display:flex;gap:10px 19px;flex-wrap:wrap;background:#0b1724;border-top:1px solid #22394b;color:#adc1ce;font-size:11px}kbd{display:inline-block;padding:2px 6px;border:1px solid #38576c;background:#1e3447;border-radius:4px;color:#ecf7ff;font:11px monospace}.groundnotice{margin:0;background:#161e2c;border-top:1px solid #344358;padding:9px 13px;color:#b6c7d5;font-size:11px}.groundnotice strong{color:#e6bd8b}
+.sideintro{padding:13px 15px}.bar{height:7px;border-radius:20px;background:#233648;overflow:hidden;margin-top:9px}.bar>div{height:100%;width:0;background:linear-gradient(90deg,#d75485,#61ddd1);transition:width .2s}.missions{padding:6px 10px 14px;max-height:560px;overflow:auto}.mission{width:100%;color:#ccdfed;display:flex;text-align:left;align-items:center;gap:9px;padding:10px 8px;background:transparent;border:1px solid transparent;border-radius:7px;margin:3px 0}.mission:hover{background:#1a3143}.mission.active{border-color:#48788c;background:#193347}.mission.done{background:#122c30}.num{flex-shrink:0;width:37px;padding:6px 0;text-align:center;border:1px solid #476375;border-radius:5px;font:12px monospace;color:#e1edfb}.done .num{color:#b4ffe1;border-color:#2a8a72;background:#154039}.minfo{flex:1;min-width:0}.minfo b{display:block;font-size:12px}.minfo small{display:block;color:#819eaf;font-size:10px;margin-top:3px}.mission .flagmark{color:#79dec0;font-size:13px}.sidenote{margin:0 15px 14px;background:#112336;border:1px solid #274556;border-radius:7px;padding:11px;font-size:11px;color:#a0bacb}.sidenote strong{color:#ffbfd0}.sidenote ol{margin:5px 0 0;padding-left:18px}.rowpanels{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.inner{padding:15px}.inner p{margin:0 0 12px;color:#aac2cf;font-size:12px}.keygrid{display:flex;flex-wrap:wrap;gap:8px}.skill{border:1px solid #37546c;background:#172d41;border-radius:7px;color:#d9eafa;padding:8px 10px;font-size:12px}.skill strong{color:#ffd1df}.mini-list{font-size:12px;color:#93b0c1;margin:0;padding-left:20px}.mini-list li{margin-bottom:4px}.smalllabel{font:11px monospace;color:#77ccbb;letter-spacing:1px}.bottom{margin-top:18px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:#607c91;font:11px monospace}
+#modal{position:fixed;inset:0;background:#030a10e6;z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}#modal[hidden]{display:none}.modalbox{background:linear-gradient(150deg,#14273a,#0b1928);border:1px solid #59859a;border-radius:13px;width:min(790px,100%);max-height:93vh;overflow:auto;box-shadow:0 28px 100px #000b}.mhead{display:flex;justify-content:space-between;align-items:start;gap:16px;padding:18px 22px;border-bottom:1px solid #314e61}.mhead h2{margin:4px 0 0;font-size:23px}.mhead small{font:11px monospace;color:#79ded0;letter-spacing:2px}.mbody{padding:20px 22px}.story{border-left:3px solid #6bc6c3;background:#162d3d;padding:12px 15px;color:#b8e4e2;margin-bottom:13px;font-size:13px}.explain{color:#a5bece;font-size:12px;margin-bottom:14px}.lab{background:#040d18;border:1px solid #34536a;border-radius:7px;padding:15px;min-height:150px}.output{color:#b3f3c8;white-space:pre-wrap;min-height:100px;max-height:250px;overflow:auto;font:12px/1.65 Consolas,'Malgun Gothic',monospace}.tools{display:flex;gap:9px;flex-wrap:wrap;margin-top:11px}.field{flex:1;min-width:150px;background:#101e2d;color:#edffff;border:1px solid #41637a;border-radius:6px;padding:10px 12px}.action{background:#225a62;border:1px solid #56aeb1;color:#eafffa;padding:9px 15px;border-radius:6px}.action:hover{background:#2d6d71}.action.alt{background:#25394d;border-color:#50687d}.answer{border-top:1px solid #365064;margin-top:17px;padding-top:17px}.answer label{display:block;font-weight:700;color:#ffd4e1;margin-bottom:8px}.msg{min-height:22px;font-size:12px;color:#f5c18c;margin-top:9px}.hint{display:none;margin-top:10px;background:#29283b;color:#efd0aa;padding:10px;border:1px solid #65506d;border-radius:6px;font-size:12px}.hint.show{display:block}.close{background:#21354a;color:#d7f1f8;border:1px solid #49627a;border-radius:6px;padding:8px 12px}
+#toast{position:fixed;z-index:50;bottom:21px;left:50%;transform:translateX(-50%);display:none;background:#172f3f;border:1px solid #78b1bc;border-radius:7px;box-shadow:0 15px 50px #0009;padding:11px 16px;color:#edffff;font:12px/1.5 monospace;max-width:90vw}.touch{display:none;border-top:1px solid #28465d;padding:12px;justify-content:space-between;gap:12px;background:#0b1826}.touch .pad{display:grid;grid-template-columns:repeat(3,40px);grid-template-rows:repeat(3,37px);gap:3px}.touch button{background:#203a51;border:1px solid #4e7793;color:#e7f5ff;border-radius:7px;min-width:38px;min-height:37px;touch-action:none}.touch .acts{display:grid;grid-template-columns:repeat(4,40px);gap:4px;align-content:center}.btn-move-u{grid-column:2;grid-row:1}.btn-move-l{grid-column:1;grid-row:2}.btn-move-r{grid-column:3;grid-row:2}.btn-move-d{grid-column:2;grid-row:3}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.missions{max-height:290px}.rowpanels{grid-template-columns:1fr}}@media(max-width:680px){header{padding:13px;height:auto}.logo{font-size:21px!important}.subtitle{font-size:9px}.topstats{flex-wrap:wrap;justify-content:flex-end}.chip{display:none}main{padding:8px 10px 23px}.opening h1{font-size:21px}.opening p{font-size:11px}.maphelp{display:none}.touch{display:flex}.keybar{display:none}.mbody{padding:14px}.mhead{padding:14px}.mhead h2{font-size:18px}.tools{flex-direction:column}.field{width:100%}}
+
+.lockedskill{opacity:.72;border-color:#5c4354;color:#ddbbcb;background:#2a2232}
+.lockedskill:hover{background:#342c3a}.skillnotice{margin:13px 0 0!important;padding:11px 12px;border-left:3px solid #e7a0a0;background:#2b1f31;color:#ffcbd9!important}
+.clueshelf{display:flex;flex-wrap:wrap;gap:7px;margin:5px 0 13px}.cluepill{background:#142b39;color:#a9e8dd;border:1px solid #3b7380;padding:5px 8px;border-radius:7px;font-size:11px}.cluepill strong{color:#ffc6db}
+
+/* Crisp pixel inventory with item-specific skins. */
+#inventoryOverlay{position:fixed;inset:0;z-index:21;display:flex;align-items:center;justify-content:center;padding:18px;background:#060a14e8}
+#inventoryOverlay[hidden]{display:none}
+.inventory-shell{width:min(760px,100%);max-height:93vh;overflow:auto;border:3px solid #546a81;box-shadow:0 0 0 3px #0a111c,0 24px 90px #000c;background:linear-gradient(140deg,#1b2535,#0a1727);border-radius:3px}
+.inventory-head,.inventory-footer{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px 18px;border-bottom:2px solid #283b51}.inventory-head h2{margin:3px 0 0;font-size:22px}.inventory-footer{font-size:11px;color:#8da6b7;border-bottom:0;border-top:2px solid #283b51}
+.inventory-content{display:grid;grid-template-columns:270px 1fr;gap:15px;padding:18px}.inventory-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;align-content:start}.inv-tile{background:#131e30;border:2px solid #2d4058;color:#c2d9e4;border-radius:3px;min-height:120px;padding:10px 6px;text-align:center;font-size:12px}.inv-tile img{width:60px;height:60px;display:block;margin:0 auto 5px;image-rendering:pixelated}.inv-tile.active{border-color:#84d8de;background:#203248}.inv-tile.missing{opacity:.5}.inventory-details{min-height:255px;border:2px solid #3f546c;padding:14px;background:#0c1828}.inventory-details>img{width:96px;height:96px;float:right;image-rendering:pixelated}.inventory-details h3{font-size:18px;margin:0 0 8px}.inventory-details p{color:#9db8c8;font-size:13px;line-height:1.7}.inventory-details .action{margin-top:12px}.inventory-details .item-note{font:12px/1.8 monospace;color:#8be0c9}
+.pickup-tally{position:absolute;bottom:65px;left:14px;background:#071521cb;border:1px solid #3a686c;padding:7px 9px;color:#b8ebe2;font:11px monospace;pointer-events:none}
+#modal[data-device="phone"] .modalbox{width:min(515px,100%);border-color:#79d1d5;border-width:3px;border-radius:24px}#modal[data-device="watch"] .modalbox{width:min(470px,100%);border:5px solid #4a5367;border-radius:27px}#modal[data-device="camera"] .modalbox{border-color:#a5acb9}#modal[data-device="usb"] .lab{border-color:#6d9db0}#modal[data-device="phone"] .lab{border-color:#65c7cf}#modal[data-device="watch"] .lab{border-radius:15px}
+.device-banner{display:flex;align-items:center;gap:12px;padding:10px 13px;margin-bottom:12px;background:#091726;border:1px solid #384e63}.device-banner img{width:48px;height:48px;image-rendering:pixelated}.device-banner b{font:700 13px monospace;color:#b4e9ef}.device-banner small{display:block;font:11px monospace;color:#829fae;margin-top:4px}
+@media(max-width:620px){.inventory-content{grid-template-columns:1fr}.inventory-grid{grid-template-columns:repeat(4,1fr)}.inv-tile{min-height:97px;font-size:10px}.inv-tile img{width:44px;height:44px}.inventory-details{min-height:200px}.inventory-details>img{width:64px;height:64px}}
+
+/* Pixel phone device UI for portable smartphone analysis */
+#modal[data-device="phone"]{background:rgba(2,6,11,0.92)}
+#modal[data-device="phone"] .modalbox{width:min(430px,100%);border:4px solid #7dd3dc;border-radius:34px;padding:10px 10px 18px;background:linear-gradient(180deg,#14191f 0%,#0b1118 100%);box-shadow:0 0 0 4px #1f2b38,0 0 0 8px #05080d,0 28px 100px #000c}
+#modal[data-device="phone"] .mhead{padding:8px 14px 4px;border-bottom:0;align-items:center}
+#modal[data-device="phone"] .mhead small{color:#93f0e5;letter-spacing:1px}
+#modal[data-device="phone"] .mhead h2{font-size:18px}
+#modal[data-device="phone"] .mbody{padding:8px 14px 12px}
+#modal[data-device="phone"] .story,#modal[data-device="phone"] .explain,#modal[data-device="phone"] .device-banner{display:none}
+#modal[data-device="phone"] .lab{background:#dfeaf1;border:3px solid #16212d;border-radius:22px;padding:10px;min-height:440px;color:#122235;box-shadow:inset 0 0 0 3px #f6fbff;position:relative;overflow:hidden}
+#modal[data-device="phone"] .lab:before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:88px;height:10px;border-radius:10px;background:#0a1219;z-index:3}
+#modal[data-device="phone"] .answer{border-top:0;margin-top:10px;padding-top:8px}
+#modal[data-device="phone"] .answer label{font-size:12px;color:#ffd2df}
+#modal[data-device="phone"] .tools{gap:8px}
+#modal[data-device="phone"] .field{background:#f6fbff;color:#13263a;border:2px solid #7ba4bf;padding:10px;border-radius:12px}
+#modal[data-device="phone"] .action{border-radius:12px}
+#modal[data-device="phone"] .msg{color:#ffd69c}
+.phone-ui{padding-top:14px}
+.phone-status{display:flex;justify-content:space-between;align-items:center;padding:4px 4px 10px;color:#25445b;font:700 11px monospace}
+.phone-status .icons{letter-spacing:1px}.phone-app{border:2px solid #88b8c6;border-radius:18px;background:linear-gradient(180deg,#f8fdff,#dce9f2);overflow:hidden;min-height:345px}
+.phone-appbar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:linear-gradient(180deg,#84d4dc,#62b4c4);color:#0c2233;border-bottom:2px solid #498296}
+.phone-appbar b{font:700 12px monospace}.phone-appbar span{font:11px monospace;opacity:.9}
+.phone-path{padding:7px 12px;background:#edf6fb;color:#547086;border-bottom:1px solid #bfd7e4;font:11px monospace}
+.phone-screen{padding:12px}.phone-card{background:#ffffff;border:2px solid #b7d1de;border-radius:14px;padding:10px 12px;box-shadow:0 2px 0 #d5e4ec}
+#modal[data-device="phone"] .output{background:transparent;color:#13263a;font:12px/1.7 monospace;min-height:120px;max-height:none;white-space:pre-wrap}
+.phone-miniapps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px 12px 0}.phone-miniapps div{background:#f7fbfe;border:1px solid #bfd9e8;border-radius:10px;padding:7px 3px;text-align:center;color:#406177;font:10px monospace}
+.phone-bottom{margin-top:10px;display:flex;gap:8px;align-items:center;justify-content:space-between}.phone-homebar{width:94px;height:6px;border-radius:6px;background:#12202c;margin:10px auto 2px}
+
+
+/* ===== FULL PIXEL UI OVERRIDE ===== */
+body{font-family:ui-monospace,Consolas,'Courier New',monospace;background:#0a0f18}
+header,.panel,.modalbox,.inventory-shell,.ghost,.chip,.skill,.mission,.action,.close,.field,.worldhud,.maphelp,.hinter,.sidenote,.story,.lab,.device-banner,.inv-tile,.inventory-details,.inventory-head,.inventory-footer{border-radius:0!important}
+.panel,.modalbox,.inventory-shell,.worldhud,.maphelp,.hinter,.sidenote,.story,.lab,.inventory-details,.inv-tile,.field,.action,.close,.ghost,.skill,.chip,.mission .num{box-shadow:4px 4px 0 #06111c!important}
+header .logo,.opening h1,.inventory-head h2,.mhead h2{letter-spacing:0!important;text-transform:uppercase}
+.ghost,.chip,.action,.close,.field,.skill,.mission,.inventory-head,.inventory-footer,.inventory-details,.inv-tile,.worldhud,.maphelp,.hinter,.sidenote,.story,.lab,.device-banner{border-width:2px!important}
+.panel,.inventory-shell,.modalbox{background:#101928!important;border:3px solid #50677d!important}
+.panelhead,.inventory-head,.inventory-footer,.mhead{background:#0b1522!important;border-color:#30455b!important}
+.mission{background:#122132!important}.mission:hover{background:#173048!important}.mission.active{background:#22425e!important}.mission.done{background:#153934!important}
+.ghost,.skill,.action,.close{background:#18314a!important;color:#f0fbff!important;border-color:#577692!important}
+.action:hover,.ghost:hover,.skill:hover,.close:hover{background:#244768!important}
+.field{background:#081320!important;color:#d8f4ff!important;border-color:#4c6f8a!important}
+.story{background:#122131!important;color:#d0eaf1!important;border-left:4px solid #78d5cd!important}
+.sidenote{background:#0f2233!important}.groundnotice{background:#161e2c;border-top:2px solid #344358}
+.inventory-shell{background:#0d1724!important;border:3px solid #546a81!important}
+.inventory-details,.inv-tile{background:#101c2c!important;border-color:#3e546a!important}
+.inv-tile.active{background:#20364d!important;border-color:#8ad9e0!important}
+.inventory-details p,.mission small,.opening p,.inner p,.worldhud div,.counter,.subtitle,.smalllabel,.inventory-footer{color:#a7c0cf!important}
+#modal{background:rgba(1,4,8,0.90)!important}
+.modalbox{border:3px solid #65859c!important}
+.lab{background:#081320!important;border-color:#3c6078!important}
+.output{background:#07111b;border:2px solid #2c4d63;padding:12px;color:#b4f2cd;box-shadow:inset 0 0 0 2px #091a28}
+#game{border-top:2px solid #2a4054;border-bottom:2px solid #223445}
+kbd{border-radius:0;background:#1c3346;border:2px solid #41637e}
+.keybar{background:#0c1725;border-top:2px solid #274157}
+.touch button{border-radius:0;box-shadow:3px 3px 0 #0c1520}
+/* mission device windows */
+.pixel-app{border:2px solid #5d8399;background:#0c1724;box-shadow:inset 0 0 0 2px #162536}
+.pixel-topbar{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#21394f;border-bottom:2px solid #5a7b97;color:#d7efff;font:700 12px monospace}
+.pixel-topbar .leds{letter-spacing:2px;color:#91e7d5}
+.pixel-subbar{padding:6px 10px;background:#15273a;border-bottom:1px solid #35526b;color:#93b7c7;font:11px monospace}
+.pixel-pad{padding:10px}
+.pixel-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pixel-badge{display:inline-block;padding:2px 6px;background:#183347;border:1px solid #4b7791;color:#afebdb;font:11px monospace;margin-right:5px}
+.pixel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pixel-tile{background:#101c2a;border:1px solid #37536b;padding:8px;color:#b9d5e2;font:11px monospace}
+#modal[data-device="terminal"] .lab,#modal[data-device="kiosk"] .lab,#modal[data-device="billboard"] .lab,#modal[data-device="computer"] .lab,#modal[data-device="server"] .lab,#modal[data-device="gate"] .lab,#modal[data-device="usb"] .lab,#modal[data-device="watch"] .lab,#modal[data-device="camera"] .lab{padding:12px}
+/* pixel variants for portable devices */
+#modal[data-device="usb"] .lab{background:#e9f0f5;border-color:#24384d;color:#13263a}
+#modal[data-device="usb"] .output{background:#fff;color:#13263a;border-color:#98b4c7;box-shadow:none}
+#modal[data-device="watch"] .modalbox{width:min(410px,100%);border-radius:0;padding:10px;background:#151922;border:4px solid #697487}
+#modal[data-device="watch"] .lab{background:#0f151e;border:8px solid #4f5666;color:#d9f3ff;max-width:260px;margin:auto;min-height:310px}
+#modal[data-device="watch"] .device-banner{display:none}
+#modal[data-device="watch"] .output{background:#08131a;border-color:#365d68;color:#8ff4d0;min-height:100px}
+#modal[data-device="camera"] .lab{background:#111820;border:4px solid #6f7784;color:#eff8ff}
+#modal[data-device="camera"] .output{background:#eef5fb;color:#162638;border-color:#8fa9bd;box-shadow:none}
+#modal[data-device="camera"] .device-banner{display:none}
+
+</style>
+</head>
+<body>
+<header><div><div class="logo">LOST<em>//SIGNAL</em></div><div class="subtitle">ECHO CITY · STAGE 01 · OPEN WARGAME · 10 MISSIONS</div></div><div class="topstats"><div class="chip" id="topcounter">CLEARED 00 / 10</div><div class="chip" id="dbStatus">DB: LOCAL DEMO</div><button class="ghost" id="inventoryBtn">🎒 가방 <span id="inventoryCount">0/4</span> <kbd>I</kbd></button><button class="ghost" id="helpBtn">조작 안내</button><button class="ghost" id="resetBtn">저장 초기화</button></div></header>
+<main>
+<div class="opening"><div><div class="eyebrow">STAGE 01 / ECHO CITY · ALL MISSIONS OPEN</div><h1>버려진 도시 · 사라진 동생의 흔적</h1><p>도시의 휴대용 디바이스 4개는 주워 가방에서 분석하고, 고정형 장비 6개는 현장에서 조사해. 문제는 순서 제한 없이 풀 수 있어. F·X는 연구실(3스테이지)까지 잠금.</p></div><div class="counter" id="positionTxt">POS 000,000 · ECHO CITY</div></div>
+<div class="layout"><section class="panel"><div class="panelhead"><b>탑뷰 탐험 화면</b><span>2.5D PHYSICS / 4 PICKUPS + 6 FIXED DEVICES</span></div><div class="gamewrap"><canvas id="game" width="960" height="600" aria-label="물리 점프와 달리기가 가능한 탑뷰 워게임 도시 맵"></canvas><div class="worldhud"><b>◈ ECHO SIGNAL</b><div id="worldStatus">GPS: CITY-SECTOR-A</div><div id="nearStatus">단말기를 찾아 이동해</div><div id="physStatus">GROUND · SPD 0 px/s</div></div><div class="maphelp">ARROWS · 4-WAY MOVE<br>SHIFT+SPACE · RUN JUMP / E · SCAN</div><div class="hinter" id="interactionHint">[E] 단말기 조사</div></div><div class="keybar"><span><kbd>방향키</kbd> 상하좌우 · <kbd>W A S D</kbd> 보조 이동</span><span><kbd>Shift</kbd> 달리기</span><span><kbd>Shift + 방향키 + Space</kbd> 달리며 점프</span><span><kbd>Z</kbd> 앉기 유지*</span><span><kbd>E</kbd> 조사·줍기</span><span><kbd>I / Tab</kbd> 가방</span><span><kbd>Q C</kbd> 기본 공격 · <kbd>F X</kbd> 스킬 잠김</span><span><kbd>Esc</kbd> 닫기</span></div><p class="groundnotice"><strong>에셋 안내:</strong> 업로드한 스프라이트 그대로 사용했어. 뒷모습 전용 프레임이 없어 위쪽 이동은 임시 방향 표현이고, 달리기·앉기는 기존 모션을 활용한 대체 동작이야.</p><div class="touch"><div class="pad"><button class="btn-move-u" data-hold="up">▲</button><button class="btn-move-l" data-hold="left">◀</button><button class="btn-move-d" data-hold="down">▼</button><button class="btn-move-r" data-hold="right">▶</button></div><div class="acts"><button data-tap="interact">E</button><button data-tap="inventory">가방</button><button data-tap="jump">⤒</button><button data-hold="crouch">앉기</button><button data-hold="run">달리기</button><button data-tap="q">Q</button><button data-tap="c">C</button><button data-tap="f">F</button><button data-tap="x">X</button></div></div></section>
+<aside class="panel"><div class="panelhead"><b>워게임 01–10</b><span>NO SEQUENCE LOCK</span></div><div class="sideintro"><div style="display:flex;justify-content:space-between"><span class="smalllabel">발견한 흔적</span><b id="countProgress">0 / 10</b></div><div class="bar"><div id="progressBar"></div></div></div><div class="missions" id="missions"></div><div class="sidenote"><strong>자유 선택 규칙</strong><ol><li>문제 번호에 따른 해금 조건은 없어.</li><li>휴대형 4개는 E로 주운 뒤 가방에서 언제든 분석할 수 있어.</li><li>고정형 6개는 장비 앞에서 E를 눌러야 해.</li><li>목록에서 문제를 선택하면 도시 내 대상을 표시해 줘.</li></ol></div></aside></div>
+<div class="rowpanels"><section class="panel"><div class="panelhead"><b>작전 기록 / 스토리</b><span>STORY ARCHIVE</span></div><div class="inner"><p id="storyLog">동생의 접속 기록은 이 도시 곳곳에 흩어져 있다. 단서 10개를 순서와 관계없이 모아보자.</p><div id="clueShelf" class="clueshelf">복구된 단서가 아직 없어.</div><div class="keygrid"><button class="skill" id="mapBtn">지도 중심으로 돌아가기</button><button class="skill" id="logBtn">획득한 단서 보기</button><button class="skill" id="exportBtn">진행 기록 JSON 내보내기</button><button class="skill" id="importBtn">진행 기록 불러오기</button><input type="file" accept="application/json,.json" id="importFile" hidden></div></div></section><section class="panel"><div class="panelhead"><b>캐릭터 / 스킬 잠금</b><span>USER-SUPPLIED PIXEL ART</span></div><div class="inner"><p>Graffiti Artist 이전 원본 스프라이트 12개 사용 · Q/C 기본 전투 동작만 사용 가능 · F/X는 연구실(3스테이지) 스킬 해금 전 사용 불가</p><p>Space 점프(중력·수직속도 적용), Shift+이동하며 점프 가능. 공중에서도 관성·조향 적용. Z 누르는 동안 앉기 마지막 프레임 유지.</p><div class="keygrid"><button class="skill" data-motion="attack">Q · 기본 공격</button><button class="skill" data-motion="combo">C · 연속</button><button class="skill lockedskill" data-motion="special1" title="3스테이지 전용 스킬 - 현재 잠김">🔒 F · 특수1</button><button class="skill lockedskill" data-motion="ultimate" title="3스테이지 전용 스킬 - 현재 잠김">🔒 X · 필살기</button></div><p class="skillnotice" id="skillNotice">🔒 연구실(3스테이지, 문제 21~30)에서 획득하는 스킬입니다. STAGE 1에서 10문제를 모두 풀어도 F·X는 잠금 상태를 유지합니다.</p></div></section></div>
+<div class="bottom"><span>© LOST//SIGNAL / STAGE 01 · LOCAL DEMO / 별도 DB 연결 전</span><span>STAGE 1 DB INDEPENDENT · COMMON SCHEMA DRAFT 1.0 · 11–40 NOT IMPLEMENTED</span></div>
+</main>
+<div id="inventoryOverlay" hidden><section class="inventory-shell" role="dialog" aria-modal="true" aria-labelledby="inventoryTitle">
+  <div class="inventory-head"><div><span class="smalllabel">SALVAGE / 1ST STAGE</span><h2 id="inventoryTitle">수집 장비 · INVENTORY</h2></div><button id="inventoryClose" class="close">✕ 닫기</button></div>
+  <div class="inventory-content"><div class="inventory-grid" id="inventoryGrid"></div><div class="inventory-details" id="inventoryDetails"><b>아직 수집한 장비가 없어.</b><p>도시에서 작은 디바이스에 다가가 E를 눌러 가방에 넣을 수 있어.</p></div></div>
+  <div class="inventory-footer">휴대용 장비는 획득 후 어디서나 조사 가능 · 고정형 콘솔은 가방에 들어가지 않음</div>
+</section></div>
+<div id="modal" hidden><section class="modalbox" role="dialog" aria-modal="true" aria-labelledby="missionTitle"><div class="mhead"><div><small id="missionTag">MISSION 01 · EASY</small><h2 id="missionTitle">...</h2></div><button class="close" id="closeBtn">✕ 닫기</button></div><div class="mbody"><div class="story" id="missionStory"></div><div class="explain">이 문제는 게임 안에서만 동작하는 안전한 실습 시뮬레이션이야. 실제 서버에 요청하지 않아.</div><div class="lab" id="lab"></div><div class="answer"><label for="answerInput">복구 코드 / FLAG 제출</label><div class="tools"><input class="field" id="answerInput" placeholder="실습 결과에서 찾은 값을 입력" autocomplete="off"><button class="action" id="submitBtn">정답 확인</button><button class="action alt" id="hintBtn">힌트</button></div><div class="hint" id="hintBox"></div><div class="msg" id="feedback"></div></div></div></section></div>
+<div id="toast" role="status"></div>
+<script>window.__ASSET_JSON_PARTS=[];</script>
+<script src="asset-packs/pack-00.js"></script>
+<script src="asset-packs/pack-01.js"></script>
+<script src="asset-packs/pack-02.js"></script>
+<script src="asset-packs/pack-03.js"></script>
+<script src="asset-packs/pack-04.js"></script>
+<script src="asset-packs/pack-05.js"></script>
+<script src="asset-packs/pack-06.js"></script>
+<script src="asset-packs/pack-07.js"></script>
+<script src="asset-packs/pack-08.js"></script>
+<script src="asset-packs/pack-09.js"></script>
+<script src="asset-packs/pack-10.js"></script>
+<script src="asset-packs/pack-11.js"></script>
+<script src="asset-packs/pack-12.js"></script>
+<script src="asset-packs/pack-13.js"></script>
+<script src="asset-packs/pack-14.js"></script>
+<script>
+const ASSET_URLS=JSON.parse(window.__ASSET_JSON_PARTS.join(""));
+
+// Sprite files are loaded verbatim from the user-supplied Graffiti_Artist_1.zip.
+const spriteMeta={Idle:[7,7],Walk:[10,11],Jump:[9,11],Jump_shot:[18,13],Attack_1:[6,13],Attack_2:[4,12],Attack_3:[4,12],Hurt_1:[5,10],Hurt_2:[4,7],"K.O.":[9,9],Special_Blow_1:[10,14],Special_Blow_2:[10,15]};
+const images={},canvas=document.getElementById('game'),ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+const W=2400,H=1600,T=48,VIEW_W=canvas.width,VIEW_H=canvas.height;
+const names=['Nmap 포트 스캔','HTML·JavaScript 분석','robots.txt 정보 노출','기본 계정·비밀번호','LocalStorage 정보 노출','Linux 명령어 활용','Base64 디코딩','EXIF 메타데이터 분석','DNS 정보 수집','HTTP 파라미터 변조'];
+const stories=['도시의 통신소에서 살아남은 ECHO 서버를 찾았다. 어떤 서비스가 응답하는지 알아내자.','중앙 웹 포털 소스에 숨겨진 API 호출이 남아 있다.','폐쇄된 관리 사이트의 robots.txt가 수상하다.','오래된 관리실 인증 시스템에 기본 계정이 남아 있는 듯하다.','동생이 접속했던 브라우저 저장소를 살펴보자.','버려진 PC방의 리눅스 터미널에는 동생의 메모가 남아 있을지 모른다.','휴대전화에 인코딩된 음성 문자 메시지가 남았다.','사라진 동생의 마지막 사진에서 촬영 구역을 찾아보자.','도시의 DNS 기록에서 비밀 도서관 호스트를 찾자.','출입 통제 단말기의 요청값을 검토하면 도서관 위치를 복구할 수 있다.'];
+const hints=['8080/tcp에서 열린 서비스를 확인해.','웹 JS에 적힌 API 경로를 찾아.','Disallow 목록의 첫 번째 경로.','관리자 계정의 익숙한 기본 비밀번호.','access_key 저장소 항목.','숨겨진 파일 .sibling_note을 읽어.','Base64를 디코딩하면 대문자 문자열이 나와.','사진 메타데이터의 GPS 구역.','CNAME이 연결되는 도서관 호스트.','role=admin으로 바꿔 요청해.'];
+const answers=['8080','/echo/trace','/archive-hidden','admin123','ECHO-DEV-KEY','SIBLING-042','LIBRARY_GATE','SECTOR-07','library.echo.local','LIBRARY-OPEN'];
+const clues=['통신망에서 8080 서비스를 발견했다.','동생 접속 API /echo/trace 확보.','숨겨진 보관소 위치 획득.','도시 관리자 출입 기록 복원.','ECHO 개발 인증 키 발견.','동생이 남긴 이름 없는 메모 확보.','메시지 LIBRARY_GATE 복호화.','마지막 사진의 구역 SECTOR-07 확인.','도서관 호스트 library.echo.local 확인.','도서관 입구 좌표와 개방 코드 확보.'];
+const places=['구 통신소 네트워크 패널','광장 공공 키오스크','버스 안내 전광판','폐관리실 데스크톱','파손된 휴대폰','폐허에서 발견한 USB','스마트워치','낡은 디지털카메라','통신센터 DNS 서버랙','도시 외곽 출입 콘솔'];
+const fixedNodes=[
+ {i:0,x:280,y:508,kind:'terminal'}, {i:1,x:940,y:508,kind:'kiosk'},
+ {i:2,x:1620,y:508,kind:'billboard'}, {i:3,x:2130,y:508,kind:'computer'},
+ {i:8,x:870,y:1200,kind:'server'}, {i:9,x:2035,y:1200,kind:'gate'}
+];
+const terminals=fixedNodes;
+const pickupDefs=[
+ {i:4,id:'phone',name:'깨진 스마트폰',kind:'phone',x:530,y:785,description:'금이 간 화면에 브라우저 데이터가 남아 있다.'},
+ {i:5,id:'usb',name:'회수한 USB',kind:'usb',x:1305,y:745,description:'데이터가 남아 있는 손상된 소형 USB.'},
+ {i:6,id:'watch',name:'스마트워치',kind:'watch',x:1670,y:1105,description:'활동 기록과 암호화된 메시지가 남아 있다.'},
+ {i:7,id:'camera',name:'디지털카메라',kind:'camera',x:345,y:1325,description:'메모리 카드에서 마지막 촬영 사진을 찾을 수 있다.'}
+];
+const itemByMission=Object.fromEntries(pickupDefs.map(p=>[p.i,p]));
+const fixedByMission=Object.fromEntries(fixedNodes.map(p=>[p.i,p]));
+const props={}; for(const p of [...fixedNodes,...pickupDefs]){const img=new Image(); img.src=ASSET_URLS['prop_'+p.kind+'.png'];props[p.kind]=img;}
+let inventorySelected=null;
+const collisions=[];let currentMission=-1,lastNear=-1,selectedIndex=-1,paused=false;
+const storageKey='LOST_SIGNAL_STAGE1_LOCAL_PROGRESS_V1';
+// Same schema, separate DB per team. Offline mode writes ONLY the local stage-1 key.
+// No server credentials are embedded in this game and stage-1 never writes skill_unlocks.
+const STAGE_ID=1,STAGE_SKILL_UNLOCK_ALLOWED=false;
+const missionIds=Array.from({length:10},(_,i)=>'W'+String(i+1).padStart(2,'0'));
+
+let save={solved:[],items:[],x:300,y:640};try{const s=JSON.parse(localStorage.getItem(storageKey));if(s&&Array.isArray(s.solved)){save={solved:s.solved.filter(x=>Number.isInteger(x)&&x>=0&&x<=9),items:Array.isArray(s.items)?[...new Set(s.items.filter(id=>pickupDefs.some(p=>p.id===id)))]:[],x:Number.isFinite(s.x)?s.x:300,y:Number.isFinite(s.y)?s.y:640};}}catch{}
+// Top-down world position (x,y) + independent jump height (z): simple 2.5D physics.
+// Units: world pixels, seconds, pixels/second, pixels/second². No real 3D rigid-body simulation.
+const PHYSICS=Object.freeze({walkSpeed:188,runSpeed:344,groundAcceleration:1580,airAcceleration:760,groundFriction:2000,airFriction:260,gravity:1500,jumpImpulse:505,jumpCut:0.53,maxFallSpeed:900,landingFxTime:0.22});
+const player={x:Math.max(35,Math.min(W-35,save.x)),y:Math.max(35,Math.min(H-35,save.y)),dir:'down',moving:false,run:false,phase:0,motion:'Idle',action:null,crouch:false, vx:0,vy:0,z:0,vz:0,airborne:false,jumpElapsed:0,landingFx:0};
+const keys=new Set();let toastUntil=0,toastText='',frameClock=0,nowTime=0,camera={x:0,y:0},renderScale=1;
+function persist(){save.x=player.x;save.y=player.y;try{localStorage.setItem(storageKey,JSON.stringify(save));}catch{}}
+function makeSharedSchemaExport(){
+ const ts=new Date().toISOString();
+ return {schema_version:'1.0-draft',region_id:'stage1_abandoned_city',stage_id:STAGE_ID,
+   player_id:null, // Real player_id comes from the team's authentication backend, not an untrusted browser ID.
+   mission_progress:save.solved.map(i=>({mission_id:missionIds[i],stage_id:1,status:'solved',solved_at:null})),
+   clues:save.solved.map(i=>({clue_id:'C'+String(i+1).padStart(2,'0'),source_mission_id:missionIds[i],description:clues[i]})),
+   item_inventory:save.items.map(item_id=>({item_id,stage_id:1,obtained_at:null})),
+   player_state:{region_id:'stage1_abandoned_city',position_x:Math.round(player.x),position_y:Math.round(player.y)},
+   skill_unlocks:[],exported_at:ts};
+}
+function renderClues(){const box=$('#clueShelf');box.innerHTML=save.solved.length?save.solved.slice().sort((a,b)=>a-b).map(i=>'<span class="cluepill" title="'+clues[i].replace(/"/g,'&quot;')+'"><strong>'+String(i+1).padStart(2,'0')+'</strong> '+places[i]+'</span>').join(''):'복구된 단서가 아직 없어.';
+ $('#storyLog').textContent=save.solved.length===10?'[SIGNAL RESTORED] 동생의 마지막 신호가 가리킨 장소는 도서관. 다음 지역으로 향하는 좌표를 확보했다. 여기까지가 STAGE 1의 결말이다. 연구실 스킬은 여전히 잠겨 있다.':save.solved.length===0?'동생의 접속 기록은 이 도시 곳곳에 흩어져 있다. 단서 10개를 순서에 상관없이 모아보자.':`도시에서 ${save.solved.length}개의 접속 단서를 복구했다. 나머지 단말기도 조사해 동생의 마지막 위치를 확인하자.`;
+}
+
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));const $=s=>document.querySelector(s);const rect=(x,y,w,h,fill)=>{ctx.fillStyle=fill;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h));};
+function rgbaColor(hex,a){return hex;}
+function rand2(x,y){let z=Math.sin(x*127.1+y*311.7+7.3)*43758.5453;return z-Math.floor(z);}
+function fillPixelArea(x,y,w,h,c){worldCtx.fillStyle=c;worldCtx.fillRect(x,y,w,h)}
+let worldCanvas=document.createElement('canvas'),worldCtx=worldCanvas.getContext('2d');worldCanvas.width=W;worldCanvas.height=H;worldCtx.imageSmoothingEnabled=false;
+
+const worldBackdrop=new Image();
+worldBackdrop.src=ASSET_URLS['bg_ruined_city.png'];
+const envAssetNames=['lamp_left','lamp_mid','lamp_right','traffic_light','banner_gate','rubble_small','rubble_large','glass_small','glass_large','weed_a','weed_b','weed_c','broken_pole','car_dry','car_puddle','barricade','trash_pile','fallen_body','kiosk','server_rack','broken_tv','puddle'];
+const envImages={};
+for(const n of envAssetNames){const img=new Image();img.src=ASSET_URLS['env/'+n+'.png'];envImages[n]=img}
+let worldReady=false;
+
+
+
+function drawEnv(c,name,x,y,w=null,h=null,alpha=1){
+ const img=envImages[name]; if(!img||!img.complete||!img.naturalWidth) return;
+ const dw=w||img.naturalWidth, dh=h||img.naturalHeight;
+ c.save(); c.globalAlpha=alpha; c.imageSmoothingEnabled=false; c.drawImage(img,Math.round(x),Math.round(y),Math.round(dw),Math.round(dh)); c.restore();
+}
+function drawShadow(c,x,y,w,h,a=.28){c.fillStyle='rgba(0,0,0,'+a+')';c.beginPath();c.ellipse(x+w/2,y+h*0.86,w*0.45,h*0.10,0,0,Math.PI*2);c.fill();}
+
+
+function buildWorld(){
+ const c=worldCtx; collisions.length=0;
+ c.clearRect(0,0,W,H);
+ if(worldBackdrop.complete&&worldBackdrop.naturalWidth){
+  const iw=worldBackdrop.naturalWidth, ih=worldBackdrop.naturalHeight;
+  const scale=Math.max(W/iw,H/ih);
+  const dw=iw*scale, dh=ih*scale;
+  const dx=(W-dw)/2, dy=(H-dh)/2;
+  c.drawImage(worldBackdrop,dx,dy,dw,dh);
+ }else{
+  fillPixelArea(0,0,W,H,'#222c3a');
+  for(let y=0;y<H;y+=T)for(let x=0;x<W;x+=T){const r=rand2(x,y);fillPixelArea(x+1,y+1,T-2,T-2,r>.7?'#283442':r>.35?'#293746':'#26313e');}
+ }
+ c.fillStyle='rgba(8,12,20,0.36)'; c.fillRect(0,0,W,H);
+ c.fillStyle='rgba(10,16,28,0.14)'; c.fillRect(0,0,W,H);
+
+ // main roads
+ for(const cy of [650,1300]){
+  fillPixelArea(0,cy-110,W,220,'rgba(30,35,42,0.70)');
+  fillPixelArea(0,cy-96,W,192,'#303741');
+  for(let x=0;x<W;x+=48){
+   fillPixelArea(x,cy-98,47,4,'#8b8e8f');
+   fillPixelArea(x,cy+95,47,4,'#8b8e8f');
+   if(x%192<24)fillPixelArea(x+8,cy,25,5,'#c3b77d');
+  }
+  fillPixelArea(0,cy-150,W,36,'rgba(74,74,74,0.78)');
+  fillPixelArea(0,cy+114,W,36,'rgba(74,74,74,0.78)');
+ }
+ for(const cx of [444,1378,2185]){
+  fillPixelArea(cx-92,0,184,H,'rgba(34,39,48,0.58)');
+  fillPixelArea(cx-80,0,160,H,'#343d47');
+  for(let y=0;y<H;y+=48){
+   fillPixelArea(cx-81,y,4,46,'#92979d');
+   fillPixelArea(cx+77,y,4,46,'#92979d');
+   if(y%192<25)fillPixelArea(cx,y+7,4,28,'#c6ba7f');
+  }
+ }
+ // subtle ambient grime
+ for(let i=0;i<540;i++){
+  let x=Math.floor(rand2(i,11)*W), y=Math.floor(rand2(i,38)*H), r=rand2(i,99);
+  if(r>.84){ drawRubble(c,x,y,1+Math.floor(rand2(i,101)*2)); }
+  else if(r>.55){ drawCrack(c,x,y,1+Math.floor(rand2(i,120)*3)); }
+  else if(r>.28){ drawWeed(c,x,y); }
+  else if(r<.08){ drawGlass(c,x,y); }
+ }
+
+ // image-based props from the new pixel asset sheet
+ const lamps=[ [90,280,130,180,'lamp_left'], [510,310,120,170,'lamp_mid'], [1180,280,115,165,'lamp_right'], [1650,300,130,180,'lamp_left'], [2500,280,120,170,'lamp_mid'], [170,930,120,160,'traffic_light'] ];
+ for(const [x,y,w,h,n] of lamps){ drawShadow(c,x,y,w,h,.22); drawEnv(c,n,x,y,w,h); if(n.startsWith('lamp')){ const gx=x+w*0.52, gy=y+h*0.22; const g=c.createRadialGradient(gx,gy,6,gx,gy,88); g.addColorStop(0,'rgba(255,220,143,0.48)'); g.addColorStop(1,'rgba(255,220,143,0)'); c.fillStyle=g; c.beginPath(); c.arc(gx,gy,88,0,Math.PI*2); c.fill(); } }
+
+ const banners=[[340,170,250,120],[1335,170,250,120],[2070,175,250,120]];
+ for(const [x,y,w,h] of banners) drawEnv(c,'banner_gate',x,y,w,h,.85);
+
+ const poles=[[720,920,86,155],[1960,1120,96,175]];
+ for(const [x,y,w,h] of poles){drawShadow(c,x,y,w,h,.25);drawEnv(c,'broken_pole',x,y,w,h)}
+
+ const cars=[[90,1030,175,95,'car_dry'],[770,1180,245,138,'car_puddle'],[1630,560,182,104,'car_dry'],[2340,1160,240,132,'car_puddle']];
+ for(const [x,y,w,h,n] of cars){drawShadow(c,x,y,w,h,.26);drawEnv(c,n,x,y,w,h)}
+
+ const barr=[[1160,1115,95,64],[1790,620,95,64],[2600,620,95,64]];
+ for(const [x,y,w,h] of barr){drawShadow(c,x,y,w,h,.2);drawEnv(c,'barricade',x,y,w,h)}
+
+ const rubs=[[620,560,120,80,'rubble_small'],[700,555,165,105,'rubble_large'],[1435,1410,120,82,'rubble_small'],[1540,1410,165,105,'rubble_large'],[2130,630,120,80,'rubble_small']];
+ for(const [x,y,w,h,n] of rubs){drawShadow(c,x,y,w,h,.2);drawEnv(c,n,x,y,w,h)}
+
+ const weeds=[[540,520,90,44,'weed_a'],[590,1215,80,40,'weed_b'],[1160,520,85,40,'weed_c'],[1990,575,80,40,'weed_b'],[2490,1420,90,42,'weed_a']];
+ for(const [x,y,w,h,n] of weeds) drawEnv(c,n,x,y,w,h,.9);
+
+ const glasses=[[880,680,90,34,'glass_small'],[1010,1210,130,48,'glass_large'],[2220,690,90,34,'glass_small']];
+ for(const [x,y,w,h,n] of glasses) drawEnv(c,n,x,y,w,h,.95);
+
+ const trash=[[910,540,122,62],[1860,1335,118,60],[2470,1330,122,62]];
+ for(const [x,y,w,h] of trash){drawShadow(c,x,y,w,h,.18);drawEnv(c,'trash_pile',x,y,w,h)}
+
+ const bodies=[[280,580,150,66],[1220,735,160,70],[710,1260,150,66],[2080,580,150,66]];
+ for(const [x,y,w,h] of bodies){drawShadow(c,x,y,w,h,.16);drawEnv(c,'fallen_body',x,y,w,h)}
+
+ const puddles=[[340,605,205,72],[1370,1360,220,82],[2290,620,205,72]];
+ for(const [x,y,w,h] of puddles){drawEnv(c,'puddle',x,y,w,h,.9)}
+
+ // terminals / buildings remain gameplay anchors, but now enhanced with image props nearby
+ const namesA={0:'NETWORK LINK',1:'ECHO KIOSK',2:'INFO DISPLAY',3:'SECURITY OFFICE',8:'DNS CENTER',9:'ACCESS GATE'};
+ terminals.forEach(({x,y,i})=>{
+  let bx=x-135, by=y-289; if(i>=5)by=y-292;
+  fillPixelArea(bx+5,by+9,265,170,'#0c1420');
+  fillPixelArea(bx,by,256,165,i%2?'#152438':'#1a2939');
+  c.strokeStyle='#44556a'; c.lineWidth=4; c.strokeRect(bx+2,by+2,251,159);
+  fillPixelArea(bx+14,by+14,226,10,'#29394e');
+  fillPixelArea(bx+16,by+39,48,74,'#27364d'); fillPixelArea(bx+78,by+39,48,74,'#24384c'); fillPixelArea(bx+140,by+39,48,74,'#213047');
+  for(let k=0;k<3;k++){fillPixelArea(bx+22+k*62,by+47,4,54,'#3d6070');fillPixelArea(bx+32+k*62,by+66,31,3,'#4c7280');}
+  fillPixelArea(bx+70,by+131,111,28,'#09111d'); fillPixelArea(bx+73,by+135,106,20,'#264252');
+  c.fillStyle='#80b6c1'; c.font='12px monospace'; c.textAlign='center'; c.fillText(namesA[i],bx+130,by+18); c.textAlign='left';
+  for(let j=0;j<5;j++){drawCrack(c,bx+20+j*37,by+42+(j%2)*27,1)}
+  if(i<4){ c.fillStyle='rgba(255,184,95,0.70)'; c.fillRect(bx+26,by+46,30,50); c.fillRect(bx+150,by+50,28,46); }
+  fillPixelArea(x-23,y-18,48,27,'#0a131f');fillPixelArea(x-19,y-27,38,32,'#263b4f');fillPixelArea(x-15,y-22,30,19,i%3===0?'#87c5ca':'#5a84a5');fillPixelArea(x-8,y-19,12,3,'#bdf6e8');fillPixelArea(x-9,y+6,17,14,'#344b60');
+  // nearby sheet-based scenery
+  if(i===0) drawEnv(c,'server_rack',bx+190,by-32,65,140), drawEnv(c,'broken_tv',bx+205,by+118,56,36);
+  if(i===1) drawEnv(c,'kiosk',bx-48,by+70,62,86);
+  if(i===2) drawEnv(c,'broken_tv',bx-34,by+116,60,38);
+  if(i===3) drawEnv(c,'trash_pile',bx+180,by+116,68,38);
+  if(i===8) drawEnv(c,'server_rack',bx+176,by+15,72,150);
+  if(i===9) drawEnv(c,'barricade',bx+162,by+115,75,50);
+  collisions.push({x:bx,y:by,w:256,h:158});
+ });
+
+ // crates / filler props
+ for(let i=0;i<35;i++){let x=rand2(i,282)*W,y=rand2(i,352)*H;if(i%2)drawCrate(c,x,y)}
+ let grad=c.createRadialGradient(W/2,H/2,420,W/2,H/2,2000); grad.addColorStop(0,'rgba(0,0,0,0)'); grad.addColorStop(1,'rgba(4,7,12,0.36)'); c.fillStyle=grad; c.fillRect(0,0,W,H);
+ worldReady=true;
+}
+function drawTree(c,x,y){c.fillStyle='#12212d';c.fillRect(x-10,y-12,20,24);c.fillStyle='#235449';c.fillRect(x-19,y-25,38,20);c.fillStyle='#32765c';c.fillRect(x-10,y-34,25,15);c.fillStyle='#488b74';c.fillRect(x-2,y-30,10,5)}
+function drawLamp(c,x,y){
+ c.save();
+ const g=c.createRadialGradient(x,y-22,5,x,y-14,86); g.addColorStop(0,'rgba(255,211,125,0.50)'); g.addColorStop(1,'rgba(255,211,125,0)'); c.fillStyle=g; c.beginPath(); c.arc(x,y-14,86,0,Math.PI*2); c.fill();
+ c.fillStyle='rgba(255,213,140,0.16)'; c.beginPath(); c.moveTo(x-10,y-19); c.lineTo(x+10,y-19); c.lineTo(x+36,y+58); c.lineTo(x-36,y+58); c.closePath(); c.fill();
+ c.restore();
+ c.fillStyle='#0e1723';c.fillRect(x-7,y-25,14,34);c.fillStyle='#44616b';c.fillRect(x-4,y-21,8,20);c.fillStyle='#e6b47a';c.fillRect(x-9,y-33,18,13)
+}
+function drawCar(c,x,y){c.fillStyle='#0c1420';c.fillRect(x-67,y-35,137,66);c.fillStyle='#2d3d54';c.fillRect(x-61,y-30,127,55);c.fillStyle='#111b2c';c.fillRect(x-14,y-27,57,48);c.fillStyle='#556276';c.fillRect(x-8,y-21,46,38);c.fillStyle='#a04f65';c.fillRect(x+53,y-20,7,12); c.fillStyle='rgba(200,235,255,0.25)'; c.fillRect(x-8,y-21,12,38)}
+function drawCrate(c,x,y){c.fillStyle='#121a25';c.fillRect(x+3,y+3,22,22);c.fillStyle='#555363';c.fillRect(x,y,21,21);c.strokeStyle='#838092';c.lineWidth=2;c.strokeRect(x+3,y+3,15,15)}
+function drawBarrier(c,x,y){c.fillStyle='#2a313f'; c.fillRect(x-18,y-11,36,22); c.fillStyle='#b36059'; c.fillRect(x-18,y-11,12,22); c.fillRect(x+6,y-11,12,22); c.strokeStyle='#d9d7d1'; c.lineWidth=2; c.strokeRect(x-18,y-11,36,22)}
+function drawFallenBody(c,x,y,flip){
+ c.save(); c.translate(x,y); if(flip)c.scale(-1,1);
+ c.fillStyle='rgba(8,10,15,0.40)'; c.beginPath(); c.ellipse(0,8,22,8,0,0,Math.PI*2); c.fill();
+ c.fillStyle='#2e3b4f'; c.fillRect(-12,-2,26,12); c.fillStyle='#1b2432'; c.fillRect(-18,4,14,8); c.fillRect(7,6,13,7);
+ c.fillStyle='#d0b39d'; c.fillRect(10,-4,8,8); c.fillStyle='#5a6d83'; c.fillRect(-2,8,9,8); c.fillStyle='#8a4658'; c.fillRect(-12,-2,5,12);
+ c.restore();
+}
+function drawRubble(c,x,y,s){ c.fillStyle='#5b646d'; c.fillRect(x,y,4*s,3*s); c.fillStyle='#3e4650'; c.fillRect(x+3*s,y-2*s,3*s,3*s); c.fillStyle='#7b858f'; c.fillRect(x+1*s,y+2*s,2*s,2*s) }
+function drawCrack(c,x,y,s){ c.fillStyle='#141b26'; c.fillRect(x,y,8*s,2); c.fillRect(x+2*s,y-3*s,2,6*s); c.fillRect(x+5*s,y+1*s,2,5*s) }
+function drawWeed(c,x,y){ c.fillStyle='#2f684f'; c.fillRect(x,y,2,8); c.fillRect(x-2,y+2,2,5); c.fillRect(x+2,y+1,2,6); c.fillStyle='#6da77e'; c.fillRect(x+1,y-1,1,2)}
+function drawGlass(c,x,y){ c.fillStyle='rgba(167,219,255,0.6)'; c.fillRect(x,y,3,2); c.fillRect(x+3,y+2,2,2); c.fillStyle='rgba(255,255,255,0.35)'; c.fillRect(x+1,y+1,1,1)}
+if(worldBackdrop.complete&&worldBackdrop.naturalWidth){ buildWorld(); } else { worldBackdrop.addEventListener('load',()=>buildWorld(),{once:true}); buildWorld(); }
+
+function canMove(nx,ny){if(nx<45||ny<60||nx>W-45||ny>H-35)return false;for(let r of collisions){if(nx>r.x-19&&nx<r.x+r.w+19&&ny>r.y-14&&ny<r.y+r.h+21)return false;}return true;}
+function nearestTerminal(){let best=-1,bd=Infinity;terminals.forEach(t=>{const d=Math.hypot(player.x-t.x,player.y-t.y);if(d<bd){best=t.i;bd=d;}});return{index:bd<=108?best:-1,dist:bd}}
+function nearestPickup(){let best=null,bd=Infinity;for(const p of pickupDefs){if(save.items.includes(p.id))continue;const d=Math.hypot(player.x-p.x,player.y-p.y);if(d<bd){best=p;bd=d;}}return{item:bd<=78?best:null,dist:bd}}
+function drawCharacter(x,y){
+ let motion=player.motion,flip=player.dir==='left';let spec=spriteMeta[motion]||spriteMeta.Idle;let img=images[motion];if(!img?.complete||!img.naturalWidth)return;
+ let f;
+ if(player.airborne&&motion==='Jump') f=Math.min(spec[0]-1,Math.floor(player.jumpElapsed*spec[1]));
+ else if(player.action)f=Math.min(spec[0]-1,Math.floor(player.action.t*spec[1]));
+ else if(player.crouch)f=spec[0]-1; // stop on the LAST crouch frame while held
+ else f=Math.floor(player.phase*spec[1])%spec[0];
+ // Offset only the sprite by z. World ground position + collision point do not move.
+ ctx.save();ctx.translate(Math.round(x),Math.round(y-player.z));if(flip)ctx.scale(-1,1);
+ ctx.drawImage(img,f*256+28,98,200,158,-76,-126,152,120);
+ ctx.restore();
+ // The source asset has no true back-facing sheet; communicate approximation honestly.
+ if(player.dir==='up'&&player.moving){ctx.fillStyle='#7af1d8';ctx.font='bold 13px monospace';ctx.textAlign='center';ctx.fillText('↑',Math.round(x),Math.round(y-player.z-115));ctx.textAlign='left'}
+}
+function drawWorld(){ctx.clearRect(0,0,VIEW_W,VIEW_H);camera.x=clamp(player.x-VIEW_W/2,0,W-VIEW_W);camera.y=clamp(player.y-VIEW_H/2,0,H-VIEW_H);ctx.drawImage(worldCanvas,camera.x,camera.y,VIEW_W,VIEW_H,0,0,VIEW_W,VIEW_H);
+ // Static pickups are world items. Once collected, they disappear from the ground.
+ pickupDefs.forEach(p=>{
+   if(save.items.includes(p.id))return;
+   const px=Math.round(p.x-camera.x),py=Math.round(p.y-camera.y);
+   if(px<-70||px>VIEW_W+70||py<-75||py>VIEW_H+75)return;
+   const img=props[p.kind],float=Math.sin(nowTime*2.1+p.i)*2;
+   ctx.fillStyle='rgba(4,10,19,.65)';ctx.fillRect(px-19,py+23,40,7);
+   ctx.fillStyle='rgba(83,212,224,.20)';ctx.fillRect(px-19,py-16,38,43);
+   if(img.complete&&img.naturalWidth)ctx.drawImage(img,px-22,py-18+float,44,44);
+   ctx.fillStyle='#b2ffeb';ctx.textAlign='center';ctx.font='bold 12px monospace';ctx.fillText('◇ '+String(p.i+1).padStart(2,'0'),px,py-21+float);ctx.textAlign='left';
+ });
+ const t=nowTime;terminals.forEach(p=>{let x=Math.round(p.x-camera.x),y=Math.round(p.y-camera.y);if(x<-40||x>VIEW_W+40||y<-45||y>VIEW_H+45)return;let done=save.solved.includes(p.i);const dev=props[p.kind];if(dev?.complete&&dev.naturalWidth)ctx.drawImage(dev,x-27,y-42,54,54);ctx.fillStyle=done?'#76f3c1':'#ffc58e';ctx.fillRect(x-3,y-46-Math.sin(t*2+p.i)*3,6,6);ctx.font='bold 12px monospace';ctx.textAlign='center';ctx.fillStyle='#061320';ctx.fillRect(x-29,y+23,58,19);ctx.fillStyle=done?'#93ffdb':'#ffb5c6';ctx.fillText((done?'✓ ':'')+'M-'+String(p.i+1).padStart(2,'0'),x,y+37);ctx.textAlign='left';});
+ if(selectedIndex>=0){const target=itemByMission[selectedIndex]||fixedByMission[selectedIndex];if(target){const x=target.x-camera.x,y=target.y-camera.y;ctx.save();ctx.strokeStyle='#ffd78a';ctx.lineWidth=3;ctx.strokeRect(x-33,y-53,66,75);ctx.restore();}}
+ // Characters and floor layer share the same world foot position.
+ const px=player.x-camera.x,py=player.y-camera.y;
+ // Ground shadow stays on the floor, while the sprite rises according to gravity.
+ const shadowWidth=22+Math.min(player.z*.085,8);
+ ctx.fillStyle=`rgba(5,9,16,${Math.max(.16,.40-player.z/300).toFixed(2)})`;
+ ctx.beginPath();ctx.ellipse(px,py-1,shadowWidth,7,0,0,Math.PI*2);ctx.fill();
+ if(player.landingFx>0){const phase=1-player.landingFx/PHYSICS.landingFxTime;ctx.strokeStyle=`rgba(139,241,223,${Math.max(0,.7*(1-phase)).toFixed(3)})`;ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(px,py,22+phase*36,7+phase*13,0,0,Math.PI*2);ctx.stroke();}
+ drawCharacter(px,py);
+ // Global dark edges and minimap
+ const vg=ctx.createRadialGradient(VIEW_W/2,VIEW_H/2,170,VIEW_W/2,VIEW_H/2,760);vg.addColorStop(0,'#00000000');vg.addColorStop(1,'#03070fc0');ctx.fillStyle=vg;ctx.fillRect(0,0,VIEW_W,VIEW_H);
+ const mx=VIEW_W-155,my=VIEW_H-108,mw=142,mh=93;ctx.fillStyle='#06111fe8';ctx.fillRect(mx-7,my-7,mw+14,mh+14);ctx.strokeStyle='#486475';ctx.strokeRect(mx-7,my-7,mw+14,mh+14);ctx.fillStyle='#374254';ctx.fillRect(mx,my,mw,mh);terminals.forEach(p=>{ctx.fillStyle=save.solved.includes(p.i)?'#84e7c5':'#ff9aaf';ctx.fillRect(mx+Math.round(p.x/W*mw)-2,my+Math.round(p.y/H*mh)-2,4,4)});pickupDefs.forEach(p=>{if(!save.items.includes(p.id)){ctx.fillStyle='#76ecff';ctx.fillRect(mx+Math.round(p.x/W*mw)-2,my+Math.round(p.y/H*mh)-2,4,4)}});ctx.fillStyle='#fff5d0';ctx.fillRect(mx+Math.round(player.x/W*mw)-3,my+Math.round(player.y/H*mh)-3,6,6);ctx.fillStyle='#c2edeb';ctx.font='9px monospace';ctx.fillText('CITY MAP',mx+5,my+10);
+}
+function notify(msg){let el=$('#toast');el.textContent=msg;el.style.display='block';clearTimeout(notify.timer);notify.timer=setTimeout(()=>el.style.display='none',2500)}
+function updateUI(){let count=save.solved.length;$('#topcounter').textContent='CLEARED '+String(count).padStart(2,'0')+' / 10';$('#countProgress').textContent=count+' / 10';$('#progressBar').style.width=(count*10)+'%';let near=nearestTerminal(),found=nearestPickup();const isNear=!!found.item||near.index>=0;
+ $('#interactionHint').classList.toggle('show',isNear&&$('#modal').hidden&&$('#inventoryOverlay').hidden);
+ if(found.item){$('#interactionHint').textContent='[E] '+found.item.name+' 줍기';$('#nearStatus').textContent='PICKUP: '+found.item.name;}
+ else if(near.index>=0){$('#interactionHint').textContent='[E] '+String(near.index+1).padStart(2,'0')+'번 · '+names[near.index];$('#nearStatus').textContent='NEAR: '+places[near.index];}
+ else{$('#nearStatus').textContent='고정형 장비 E 조사 / 가방 I';}
+ $('#inventoryCount').textContent=save.items.length+'/4';
+ $('#positionTxt').textContent='POS '+Math.floor(player.x)+','+Math.floor(player.y)+' · ECHO CITY';
+ $('#worldStatus').textContent='MODE: '+(player.airborne?(player.run?'RUN + JUMP':'JUMP'):player.crouch?'CROUCH':player.action?'ACTION':player.run&&player.moving?'RUN':player.moving?'WALK':'IDLE')+' · '+player.dir.toUpperCase();
+ $('#physStatus').textContent=(player.airborne?'AIR '+Math.round(player.z)+'px':'GROUND')+' · SPD '+Math.round(Math.hypot(player.vx,player.vy))+' px/s';
+}
+function showMissions(){renderClues();let box=$('#missions');box.innerHTML=names.map((n,i)=>`<button type="button" class="mission ${save.solved.includes(i)?'done':''} ${selectedIndex===i?'active':''}" data-open="${i}"><span class="num">${String(i+1).padStart(2,'0')}</span><span class="minfo"><b>${n}</b><small>${places[i]} · ${save.solved.includes(i)?'완료':itemByMission[i]?(save.items.includes(itemByMission[i].id)?'가방에서 분석 가능':'아직 획득 전'):'현장에서 조사 가능'}</small></span><span class="flagmark">${save.solved.includes(i)?'✓':'›'}</span></button>`).join('');box.querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',()=>{const i=+el.dataset.open;selectedIndex=i;showMissions();if(itemByMission[i]&&save.items.includes(itemByMission[i].id))openMission(i);else if(fixedByMission[i]&&nearestTerminal().index===i)openMission(i);else markMission(i);}));updateUI();}
+const spriteAction={attack:'Attack_2',combo:'Attack_3',special1:'Special_Blow_1',ultimate:'Special_Blow_2',jump:'Jump',interact:'Attack_1'};
+function actionRun(a){
+ a=({q:'attack',c:'combo',f:'special1',x:'ultimate'})[a]||a;
+ if(!$('#modal').hidden||!$('#inventoryOverlay').hidden||player.crouch)return;
+ if((a==='special1'||a==='ultimate')&&!STAGE_SKILL_UNLOCK_ALLOWED){notify('🔒 이 스킬은 연구실(3스테이지, 문제 21~30)에서 획득해야 사용할 수 있어.');return;}
+ if(a==='interact'){
+  const found=nearestPickup();if(found.item){pickUp(found.item);return;}const near=nearestTerminal();if(near.index>=0){openMission(near.index)}else{notify('디바이스 또는 단말기 근처에서 E로 조사해.');triggerAction('interact')}return;
+ }
+ if(a==='jump'){startJump();return;}
+ triggerAction(a);
+}
+function startJump(){
+ // Single jump: no repeated jump in mid-air, and no jump while crouching/attacking.
+ if(player.airborne||player.crouch||player.action)return;
+ player.airborne=true;player.z=0.01;player.vz=PHYSICS.jumpImpulse;
+ player.jumpElapsed=0;player.landingFx=0;player.phase=0;
+ player.motion='Jump';
+}
+function triggerAction(a){
+ if((a==='special1'||a==='ultimate')&&!STAGE_SKILL_UNLOCK_ALLOWED)return;
+ const image=spriteAction[a];if(!image)return;
+ player.action={name:a,t:0};player.motion=image;player.phase=0;
+ if(a==='ultimate')notify('FINISHER · SPECIAL BLOW 2');
+}
+function moveToward(current,target,maxDelta){return current<target?Math.min(current+maxDelta,target):Math.max(current-maxDelta,target);}
+function integratePhysics(dt){
+ // Semi-implicit Euler integration of gravity, with a hard floor z=0.
+ if(player.airborne){
+  player.jumpElapsed+=dt;
+  player.vz=Math.max(-PHYSICS.maxFallSpeed,player.vz-PHYSICS.gravity*dt);
+  player.z+=player.vz*dt;
+  if(player.z<=0){
+   player.z=0;player.vz=0;player.airborne=false;
+   player.landingFx=PHYSICS.landingFxTime;player.phase=0;
+  }
+ }
+ if(player.landingFx>0)player.landingFx=Math.max(0,player.landingFx-dt);
+}
+function motionUpdate(dt){
+ const sx=(keys.has('right')?1:0)-(keys.has('left')?1:0);
+ const sy=(keys.has('down')?1:0)-(keys.has('up')?1:0);
+ player.crouch=keys.has('crouch')&&!player.airborne;
+ player.run=keys.has('run');
+ const hasDirection=!!(sx||sy),inputLength=Math.hypot(sx,sy)||1;
+ const actionLocksGroundMove=!!player.action&&!player.airborne;
+ let targetVx=0,targetVy=0;
+ if(hasDirection&&!player.crouch&&!actionLocksGroundMove){
+  const maxSpeed=player.run?PHYSICS.runSpeed:PHYSICS.walkSpeed;
+  targetVx=sx/inputLength*maxSpeed;
+  targetVy=sy/inputLength*maxSpeed;
+  if(sx!==0)player.dir=sx<0?'left':'right';else player.dir=sy<0?'up':'down';
+ }
+ if(player.crouch){player.vx=0;player.vy=0;}
+ else {
+  const acceleration=player.airborne?PHYSICS.airAcceleration:PHYSICS.groundAcceleration;
+  const friction=player.airborne?PHYSICS.airFriction:PHYSICS.groundFriction;
+  const rate=(targetVx||targetVy)?acceleration:friction;
+  player.vx=moveToward(player.vx,targetVx,rate*dt);
+  player.vy=moveToward(player.vy,targetVy,rate*dt);
+  // Collision on each axis separately lets players slide along solid buildings.
+  const dx=player.vx*dt,dy=player.vy*dt;
+  if(canMove(player.x+dx,player.y))player.x+=dx;else player.vx=0;
+  if(canMove(player.x,player.y+dy))player.y+=dy;else player.vy=0;
+ }
+ integratePhysics(dt);
+ player.moving=Math.hypot(player.vx,player.vy)>3;
+ if(player.crouch){player.action=null;player.motion='Hurt_2';player.phase=0;}
+ else if(player.action){
+  player.action.t+=dt;
+  const spec=spriteMeta[spriteAction[player.action.name]||'Idle'];
+  if(player.action.t>=spec[0]/spec[1]){player.action=null;player.phase=0;}
+  if(player.airborne&&player.action===null)player.motion='Jump';
+ }
+ else if(player.airborne){player.motion='Jump';}
+ else {player.motion=player.moving?'Walk':'Idle';player.phase+=dt*(player.run?1.65:1);}
+}
+let last=0,saveTimer=0;function tick(t){let dt=Math.min(.05,(t-last)/1000||.016);last=t;nowTime=t/1000;if($('#modal').hidden&&$('#inventoryOverlay').hidden){motionUpdate(dt);saveTimer+=dt;if(saveTimer>2){persist();saveTimer=0;}}drawWorld();updateUI();requestAnimationFrame(tick);}
+// Mission UI: independent safe offline wargame simulations, not real vulnerable hosts.
+const hintBox=$('#hintBox');const lab=$('#lab');const result=$('#feedback');
+function labTemplate(i){switch(i){
+case 0:return '<div class="output" id="out">TARGET 10.0.0.7 / ECHO Relay\n열린 포트와 실행 중인 서비스 확인</div><div class="tools"><input class="field" id="command" value="nmap -sV 10.0.0.7"><button class="action" id="execute">가상 스캔</button></div>';
+case 1:return '<div class="output" id="out">&lt;html&gt;\n &lt;script src="/static/portal.js"&gt;&lt;/script&gt;\n&lt;/html&gt;</div><div class="tools"><button class="action" id="execute">portal.js 열기</button></div>';
+case 2:return '<div class="output" id="out">https://portal.echo.local/robots.txt</div><div class="tools"><button class="action" id="execute">robots.txt 확인</button></div>';
+case 3:return '<div class="output" id="out">LEGACY ADMIN LOGIN</div><div class="tools"><input class="field" id="user" value="admin" aria-label="사용자명"><input class="field" id="password" placeholder="비밀번호" aria-label="비밀번호"><button class="action" id="execute">로그인</button></div>';
+case 4:return '<div class="phone-ui"><div class="phone-status"><span>09:41</span><span class="icons">◉ ◉ ▂▃▅ 81%</span></div><div class="phone-app"><div class="phone-appbar"><b>Browser Storage</b><span>RECOVERED PHONE</span></div><div class="phone-path">/apps/browser/localStorage.json</div><div class="phone-miniapps"><div>MSG</div><div>PHOTO</div><div>BROWSER</div><div>FILES</div></div><div class="phone-screen"><div class="phone-card"><div class="output" id="out">ECHO browser storage / guest session\n앱 로그와 저장 항목을 검사해.</div></div><div class="phone-bottom"><button class="action" id="execute">LocalStorage 검사</button><button class="action alt" type="button" disabled>앱 복구</button></div></div><div class="phone-homebar"></div></div></div>';
+case 5:return '<div class="output" id="out">user@echo-pc:~$\n지원: ls / find / cat / grep</div><div class="tools"><input class="field" id="command" value="ls -la"><button class="action" id="execute">실행</button></div>';
+case 6:return '<div class="output" id="out">BASE64: TElCUkFSWV9HQVRF</div><div class="tools"><button class="action" id="execute">Base64 디코딩</button></div>';
+case 7:return '<div class="output" id="out">PHOTO: sibling_last_photo.jpg</div><div class="tools"><button class="action" id="execute">메타데이터 확인</button></div>';
+case 8:return '<div class="output" id="out">ECHO-DNS / LOCAL ZONE</div><div class="tools"><input class="field" id="command" value="dig archive.echo.local"><button class="action" id="execute">DNS 조회</button></div>';
+case 9:return '<div class="output" id="out">POST /api/gate/access\nrole=guest&zone=library</div><div class="tools"><input class="field" id="command" value="role=guest&zone=library"><button class="action" id="execute">요청 보내기</button></div>';
+}}
+function toolRun(i){let out=$('#out'),cmd=$('#command')?.value.trim()||'';if(!out)return;switch(i){
+case 0:out.textContent=cmd.includes('nmap')?'Nmap scan (simulation)\n22/tcp   open ssh         OpenSSH\n80/tcp   open http        nginx\n8080/tcp open http-proxy  ECHO Relay\nRECOVERY PORT = 8080':'예시: nmap -sV 10.0.0.7';break;
+case 1:out.textContent='// /static/portal.js\nconst signalAPI = "/echo/trace";\nfetch(signalAPI);';break;
+case 2:out.textContent='User-agent: *\nDisallow: /archive-hidden\nDisallow: /sys-temp';break;
+case 3:out.textContent=$('#user').value==='admin'&&$('#password').value==='admin123'?'LOGIN OK\nRECOVERY CODE = admin123':'401 Unauthorized';break;
+case 4:out.textContent='localStorage:\nsession_theme=dark\naccess_key=ECHO-DEV-KEY\nlogin_hint=admin';break;
+case 5:out.textContent=cmd.startsWith('ls')?'.  ..  .sibling_note  photos  download.log':cmd.startsWith('find')?'/home/user/.sibling_note\n/home/user/photos/sibling_last_photo.jpg':cmd.startsWith('cat')&&cmd.includes('sibling')?'동생의 메모\nRECOVERY CODE = SIBLING-042':cmd.startsWith('grep')?'SIBLING-042 : sibling archive note':'지원 명령어: ls, find, cat, grep';break;
+case 6:out.textContent='DECODED\n'+atob('TElCUkFSWV9HQVRF');break;
+case 7:out.textContent='EXIF ImageDescription: sibling_last_photo\nGPSAreaInformation: SECTOR-07\nDateTimeOriginal: 2119:07:20 22:14:09';break;
+case 8:out.textContent=/dig|nslookup/.test(cmd)?'archive.echo.local CNAME library.echo.local\nlibrary.echo.local A 10.0.0.42':'지원 명령어: dig archive.echo.local';break;
+case 9:out.textContent=cmd.includes('role=admin')?'HTTP 200 OK\n{"gate":"open","recovery":"LIBRARY-OPEN"}':'HTTP 403 Forbidden\n{"gate":"locked","required_role":"admin"}';break;
+}}
+function markMission(i){selectedIndex=i;showMissions();notify(String(i+1).padStart(2,'0')+'번 목표 위치를 지도에 표시했어. 이동해서 조사해.');}
+function pickUp(p){if(!p||save.items.includes(p.id))return;save.items.push(p.id);persist();inventorySelected=p.id;updateInventory();showMissions();notify('획득: '+p.name+' · I 또는 Tab으로 가방 열기');}
+function inventoryOpen(){if(!$('#modal').hidden)return;keys.clear();$('#inventoryOverlay').hidden=false;updateInventory();}
+function inventoryClose(){$('#inventoryOverlay').hidden=true;keys.clear();}
+function updateInventory(){
+ const grid=$('#inventoryGrid');grid.innerHTML=pickupDefs.map(p=>{
+  const owned=save.items.includes(p.id),cls=inventorySelected===p.id?'active':'';
+  return `<button class="inv-tile ${cls} ${owned?'':'missing'}" data-item="${p.id}"><img src="${ASSET_URLS['prop_'+p.id+'.png']}" alt=""><b>${owned?p.name:'미발견 장비'}</b></button>`;
+ }).join('');
+ grid.querySelectorAll('[data-item]').forEach(el=>el.onclick=()=>{inventorySelected=el.dataset.item;updateInventory();});
+ const p=pickupDefs.find(p=>p.id===inventorySelected);const d=$('#inventoryDetails');
+ if(!p){d.innerHTML='<b>수집할 장비를 선택해.</b><p>도로에 떨어진 휴대폰·USB·워치·카메라를 조사하고 가방에 넣자.</p>';return;}
+ if(!save.items.includes(p.id)){d.innerHTML=`<h3>미발견 장비</h3><p>아직 획득하지 않았어. 맵에서 푸른 ◇ 아이콘을 찾아 가까이 가서 E키로 주워.</p><div class="item-note">획득 가능한 디바이스 · 4종</div>`;return;}
+ d.innerHTML=`<img src="${ASSET_URLS['prop_'+p.kind+'.png']}" alt=""><h3>${p.name}</h3><p>${p.description}</p><div class="item-note">획득 완료 · 인벤토리 분석 가능 · 문제 ${String(p.i+1).padStart(2,'0')}</div><button class="action" id="inventoryAnalyze">디바이스 열기 · 문제 분석</button>`;
+ $('#inventoryAnalyze').onclick=()=>{inventoryClose();openMission(p.i);};
+}
+$('#inventoryBtn').onclick=inventoryOpen;$('#inventoryClose').onclick=inventoryClose;
+$('#inventoryOverlay').addEventListener('click',e=>{if(e.target===$('#inventoryOverlay'))inventoryClose();});
+function openMission(i){
+ if(itemByMission[i]&&!save.items.includes(itemByMission[i].id)){notify('먼저 도시에서 '+itemByMission[i].name+'을(를) 주워야 해.');markMission(i);return;}
+ if(fixedByMission[i]&&nearestTerminal().index!==i){notify(places[i]+' 앞으로 이동해 E로 조사해야 해.');markMission(i);return;}
+ currentMission=i;selectedIndex=i;keys.clear();$('#modal').hidden=false;$('#missionTag').textContent='MISSION '+String(i+1).padStart(2,'0')+' / EASY / OPEN ACCESS';$('#missionTitle').textContent=names[i];$('#missionStory').textContent=stories[i];$('#modal').dataset.device=(itemByMission[i]?.kind||fixedByMission[i]?.kind||'computer');const kind=$('#modal').dataset.device;$('#lab').innerHTML='<div class="device-banner"><img src="'+ASSET_URLS['prop_'+kind+'.png']+'" alt=""><div><b>'+places[i]+'</b><small>'+ (itemByMission[i]?'PORTABLE DEVICE · INVENTORY':'FIXED DEVICE · FIELD ANALYSIS') +'</small></div></div>'+labTemplate(i);$('#answerInput').value='';hintBox.classList.remove('show');hintBox.textContent=hints[i];result.textContent=save.solved.includes(i)?'이미 완료한 문제야. 다시 실습할 수 있어.':'단서를 찾고 복구 코드를 입력해.';$('#execute')?.addEventListener('click',()=>toolRun(i));$('#command')?.addEventListener('keydown',e=>{if(e.key==='Enter')toolRun(i)});$('#answerInput').focus();showMissions();}
+function closeMission(){$('#modal').hidden=true;currentMission=-1;keys.clear();selectedIndex=-1;showMissions()}
+$('#closeBtn').onclick=closeMission;$('#modal').addEventListener('click',e=>{if(e.target===$('#modal'))closeMission()});$('#hintBtn').onclick=()=>hintBox.classList.toggle('show');
+function submitAnswer(){if(currentMission<0)return;let a=$('#answerInput').value.trim().toLowerCase();if(a!==answers[currentMission].toLowerCase()){result.textContent='아직 정답이 아니야. 실습 도구를 사용하거나 힌트를 확인해.';return}if(!save.solved.includes(currentMission)){save.solved.push(currentMission);save.solved.sort((a,b)=>a-b);persist();}result.textContent='✓ MISSION CLEAR · '+clues[currentMission];notify('MISSION '+String(currentMission+1).padStart(2,'0')+' CLEAR!');if(save.solved.length===10){notify('CITY ARCHIVE COMPLETE · 도서관 좌표 획득! (스킬은 잠긴 상태)');}showMissions()}
+$('#submitBtn').onclick=submitAnswer;$('#answerInput').onkeydown=e=>{if(e.key==='Enter')submitAnswer()};
+$('#resetBtn').onclick=()=>{if(confirm('완료한 10문제와 캐릭터 위치를 초기화할까?')){save={solved:[],items:[],x:300,y:640};player.x=300;player.y=640;player.vx=0;player.vy=0;player.z=0;player.vz=0;player.airborne=false;persist();showMissions();updateInventory();renderClues();notify('저장 데이터 초기화 완료')}};
+$('#helpBtn').onclick=()=>notify('WASD/방향키 이동 · Shift+Space 달리며 점프 · Z 앉기 · E 조사·줍기 · I/Tab 가방 · Q/C 공격 · 🔒F/X 잠금');
+$('#logBtn').onclick=()=>notify(save.solved.length?save.solved.map(i=>String(i+1).padStart(2,'0')+': '+clues[i]).join(' · '):'아직 획득한 단서가 없어.');
+$('#mapBtn').onclick=()=>{player.x=300;player.y=640;player.vx=0;player.vy=0;player.z=0;player.vz=0;player.airborne=false;notify('도시 시작점으로 이동했어.')}
+function downloadJson(data,filename){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+$('#exportBtn').onclick=()=>downloadJson(makeSharedSchemaExport(),'lost_signal_stage1_progress.json');
+$('#importBtn').onclick=()=>$('#importFile').click();
+$('#importFile').addEventListener('change',async(e)=>{
+ const file=e.target.files?.[0];if(!file)return;
+ try { const imported=JSON.parse(await file.text());
+   if(imported.stage_id!==1||!Array.isArray(imported.mission_progress))throw Error('STAGE 1 진행 기록만 불러올 수 있어.');
+   const solved=imported.mission_progress.filter(row=>row.status==='solved'&&typeof row.mission_id==='string')
+       .map(row=>missionIds.indexOf(row.mission_id)).filter(n=>n>=0);
+   save.solved=Array.from(new Set(solved)).sort((a,b)=>a-b);save.items=Array.isArray(imported.item_inventory)?[...new Set(imported.item_inventory.map(r=>r?.item_id).filter(id=>pickupDefs.some(p=>p.id===id)))]:save.items;
+   if(Number.isFinite(imported.player_state?.position_x)&&Number.isFinite(imported.player_state?.position_y)){
+     const nx=clamp(imported.player_state.position_x,45,W-45),ny=clamp(imported.player_state.position_y,60,H-35);
+     if(canMove(nx,ny)){player.x=nx;player.y=ny;}
+   }
+   // Deliberately discard skill_unlocks: never let STAGE 1 client import/unlock stage-3 skills.
+   persist();showMissions();updateInventory();notify('진행 기록 '+save.solved.length+'개 불러옴 · 스킬은 잠김 상태 유지');
+ } catch(err){notify('진행 기록을 읽지 못했어: '+err.message)}
+ e.target.value='';
+});
+;
+const bindings={KeyW:'up',ArrowUp:'up',KeyA:'left',ArrowLeft:'left',KeyS:'down',ArrowDown:'down',KeyD:'right',ArrowRight:'right',ShiftLeft:'run',ShiftRight:'run'};
+function isTyping(){const e=document.activeElement;return e&&['INPUT','TEXTAREA'].includes(e.tagName)}
+window.addEventListener('keydown',e=>{if(e.code==='Escape'){if(!$('#modal').hidden)closeMission();if(!$('#inventoryOverlay').hidden)inventoryClose();return}if((e.code==='KeyI'||e.code==='Tab')&&!isTyping()&&$('#modal').hidden){e.preventDefault();if(!e.repeat){if($('#inventoryOverlay').hidden)inventoryOpen();else inventoryClose();}return;}if(!$('#modal').hidden||!$('#inventoryOverlay').hidden||isTyping())return;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code))e.preventDefault();if(bindings[e.code])keys.add(bindings[e.code]);if(e.code==='KeyZ')keys.add('crouch');if(e.code==='Space')keys.add('jump');
+ if(e.repeat)return;if(e.code==='Space')actionRun('jump');if(e.code==='KeyE')actionRun('interact');if(e.code==='KeyQ')actionRun('q');if(e.code==='KeyC')actionRun('c');if(e.code==='KeyF')actionRun('f');if(e.code==='KeyX')actionRun('x');});
+window.addEventListener('keyup',e=>{if(bindings[e.code])keys.delete(bindings[e.code]);if(e.code==='KeyZ')keys.delete('crouch');if(e.code==='Space'){keys.delete('jump');if(player.airborne&&player.vz>0)player.vz*=PHYSICS.jumpCut;}});window.addEventListener('blur',()=>{keys.clear();});
+// Z is held crouch. Down uses KeyS or ArrowDown; other axes use WASD or arrows.
+const actionAlias={q:'attack',c:'combo',f:'special1',x:'ultimate'};document.querySelectorAll('[data-motion]').forEach(b=>b.onclick=()=>actionRun(b.dataset.motion));
+document.querySelectorAll('[data-tap]').forEach(b=>b.onclick=()=>b.dataset.tap==='inventory'?($('#inventoryOverlay').hidden?inventoryOpen():inventoryClose()):actionRun(actionAlias[b.dataset.tap]||b.dataset.tap));
+document.querySelectorAll('[data-hold]').forEach(b=>{const key=b.dataset.hold==='crouch'?'crouch':b.dataset.hold;b.addEventListener('pointerdown',e=>{e.preventDefault();if(!$('#modal').hidden||!$('#inventoryOverlay').hidden)return;keys.add(key);b.setPointerCapture?.(e.pointerId)});const release=()=>keys.delete(key);for(let type of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(type,release)});
+for(const name of Object.keys(spriteMeta)){const img=new Image();img.src=ASSET_URLS[name+'.png'];images[name]=img;}
+showMissions();updateInventory();requestAnimationFrame(tick);
+</script>
+</body></html>
